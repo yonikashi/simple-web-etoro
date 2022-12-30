@@ -1,0 +1,39 @@
+{{- if .Values.autoscaling.enabled }}
+apiVersion:  keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ include "helm-simple-web.fullname" . }}-scale-cpu
+  labels:
+    {{- include "helm-simple-web.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    name: {{ include "helm-simple-web.fullname" . }}
+  minReplicaCount: {{ .Values.autoscaling.minReplicas }}
+  maxReplicaCount: {{ .Values.autoscaling.maxReplicas }}
+  triggers:
+    {{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
+    - type: cpu
+      metricType: Utilization
+      metadata:
+        value: '{{ .Values.autoscaling.targetCPUUtilizationPercentage }}'
+    {{- end }}
+---
+apiVersion:  keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ include "helm-simple-web.fullname" . }}-scale-mem
+  labels:
+    {{- include "helm-simple-web.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    name: {{ include "helm-simple-web.fullname" . }}
+  minReplicaCount: {{ .Values.autoscaling.minReplicas }}
+  maxReplicaCount: {{ .Values.autoscaling.maxReplicas }}
+  triggers:
+    {{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
+    - type: memory
+      metricType: Utilization
+      metadata:
+        value: '{{ .Values.autoscaling.targetCPUUtilizationPercentage }}'
+    {{- end }}
+{{- end }}
