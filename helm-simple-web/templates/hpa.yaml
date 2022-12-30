@@ -15,6 +15,9 @@ spec:
     - type: cpu
       metadata:
         value: '{{ .Values.autoscaling.targetCPUUtilizationPercentage }}'
+      timeWindow:
+        start: "8:00"
+        end: "12:00"
     {{- end }}
 ---
 apiVersion:  keda.sh/v1alpha1
@@ -33,5 +36,8 @@ spec:
     - type: memory
       metadata:
         value: '{{ .Values.autoscaling.targetCPUUtilizationPercentage }}'
+      timeWindow:
+        start: "8:00"
+        end: "12:00"
     {{- end }}
 {{- end }}
