@@ -13,7 +13,6 @@ spec:
   triggers:
     {{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
     - type: cpu
-      metricType: Utilization
       metadata:
         value: '{{ .Values.autoscaling.targetCPUUtilizationPercentage }}'
     {{- end }}
@@ -32,7 +31,6 @@ spec:
   triggers:
     {{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
     - type: memory
-      metricType: Utilization
       metadata:
         value: '{{ .Values.autoscaling.targetCPUUtilizationPercentage }}'
     {{- end }}

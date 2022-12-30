@@ -11,8 +11,8 @@ image:
   tag: "latest"
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: "helm-simple-web"
+fullnameOverride: "helm-simple-web"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -37,7 +37,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
 
 ingress:
@@ -48,7 +48,7 @@ ingress:
      nginx.ingress.kubernetes.io/rewrite-target: /$1
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: localhost
+    - host: helm-simple-web
       paths:
         - path: /yonatan
           pathType: ImplementationSpecific
